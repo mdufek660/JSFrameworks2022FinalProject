@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import { Route, Routes } from "react-router-dom";
+import Login from "./Components/Login";
+import SearchBooks from "./Components/SearchBooks";
+import BookShelf from "./Components/BookShelf"
+import Book from "./Components/Book"
 import './App.css';
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   return (
+    <>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="Content">
+        <Routes>
+          <Route exact path="/" element={<Login />} component={Login}/>
+            <Route element={<ProtectedRoute />}>
+              <Route exact path="/bookshelf" element={<BookShelf />} component={BookShelf} />
+              <Route exact path="/search" element={<SearchBooks />} component={SearchBooks} />
+              <Route exact path="/book/:bookId" element={<Book />} component = {Book} />
+            </Route>
+        </Routes>
+      </div>
     </div>
+  </>
+
   );
+
 }
 
 export default App;
